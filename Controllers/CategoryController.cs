@@ -53,6 +53,7 @@ namespace Blog.Controllers
 
               context.Categories.Update(category);  // Atualiza o registro
                 await context.SaveChangesAsync(); 
+                return NoContent();
         }
 
          [HttpDelete("v1/categories{id:int}")]
