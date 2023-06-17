@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
     "\\Data"
   ],
+  "SelectedNode": "\\Data\\BlogDataContext.cs",
   "PreviewInSolutionExplorer": false
 }
