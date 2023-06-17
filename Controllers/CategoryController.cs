@@ -34,12 +34,19 @@ namespace Blog.Controllers
            [FromBody] Category model,
             [FromServices] BlogDataContext context)
         {
-           await context.Categories.AddAsync(model);
-           await context.SaveChangesAsync(); 
-           return Created($"v1/categories/{model.Id}", model);
+           try
+           {
+                context.Categories.Add(model);
+               await context.SaveChangesAsync();
+               return Created($"/v1/categories/{model.Id}", model);
+           }
+           catch (Exception)
+           {
+               return BadRequest(new { message = "Não foi possível criar a categoria" });
+           }
         }
 
-         [HttpPut("v1/categories{id:int}")]
+         [HttpPut("v1/categories/{id:int}")]
         public async Task<IActionResult> PutAsync(
             [FromRoute] int id,
             [FromBody] Category model,
@@ -53,10 +60,10 @@ namespace Blog.Controllers
 
               context.Categories.Update(category);  // Atualiza o registro
                 await context.SaveChangesAsync(); 
-                return NoContent();
+                return Ok(category);
         }
 
-         [HttpDelete("v1/categories{id:int}")]
+         [HttpDelete("v1/categories/{id:int}")]
 
         public async Task<IActionResult> DeleteAsync(
             [FromRoute] int id,
