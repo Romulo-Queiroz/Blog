@@ -3,7 +3,6 @@ using Blog.Data;
 using Microsoft.EntityFrameworkCore;
 using Blog.Models;
 using Blog.ViewModels;
-
 namespace Blog.Controllers
 {
     [ApiController]
@@ -13,8 +12,14 @@ namespace Blog.Controllers
         public async Task<IActionResult> GetAsync(
             [FromServices] BlogDataContext context)
         {
-            var categories = await context.Categories.ToListAsync();
-            return Ok(categories);
+            try {
+                var categories = await context.Categories.AsNoTracking().ToListAsync();
+                return Ok(new ResultViewModel<List<Category>>(categories));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "Não foi possível obter as categorias" });
+            }
         }
 
         
@@ -23,10 +28,15 @@ namespace Blog.Controllers
             [FromRoute] int id,
             [FromServices] BlogDataContext context)
         {
-            var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-            if (category == null)
-                return NotFound();
-            return Ok(category);
+            try 
+            {
+                var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+                return Ok(new ResultViewModel<Category>(category));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "Não foi possível obter a categoria" });
+            }
             
         }
 
