@@ -7,37 +7,41 @@ namespace Blog.Controllers
 {
     [ApiController]
     public class CategoryController : ControllerBase
-    {
-        [HttpGet("v1/categories")]
+    { [HttpGet("v1/categories")]
         public async Task<IActionResult> GetAsync(
             [FromServices] BlogDataContext context)
         {
-            try {
-                var categories = await context.Categories.AsNoTracking().ToListAsync();
+            try
+            {
+                var categories = await context.Categories.ToListAsync();
                 return Ok(new ResultViewModel<List<Category>>(categories));
             }
-            catch (Exception)
+            catch
             {
-                return BadRequest(new { message = "Não foi possível obter as categorias" });
+                return StatusCode(500, new ResultViewModel<List<Category>>("05X04 - Falha interna no servidor"));
             }
         }
-
         
-        [HttpGet("v1/categories/{id:int}")]
+       [HttpGet("v1/categories/{id:int}")]
         public async Task<IActionResult> GetByIdAsync(
             [FromRoute] int id,
             [FromServices] BlogDataContext context)
         {
-            try 
+            try
             {
-                var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+                var category = await context
+                    .Categories
+                    .FirstOrDefaultAsync(x => x.Id == id);
+
+                if (category == null)
+                    return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
+
                 return Ok(new ResultViewModel<Category>(category));
             }
-            catch (Exception)
+            catch
             {
-                return BadRequest(new { message = "Não foi possível obter a categoria" });
+                return StatusCode(500, new ResultViewModel<Category>("Falha interna no servidor"));
             }
-            
         }
 
         [HttpPost("v1/categories")]
