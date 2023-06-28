@@ -50,7 +50,7 @@ namespace Blog.Controllers
             [FromServices] BlogDataContext context)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
            try
            {
             var category = new Category{
@@ -74,15 +74,25 @@ namespace Blog.Controllers
             [FromBody] EditorCategoryViewModel model,
             [FromServices] BlogDataContext context)
         {
-           var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-           if (category == null)
-                return NotFound();
-              category.Name = model.Name;
-              category.Slug = model.Slug;
-
-              context.Categories.Update(category);  // Atualiza o registro
-                await context.SaveChangesAsync(); 
-                return Ok(category);
+           try 
+           {
+               var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+               if (category == null)
+                  return NotFound();
+                  category.Name = model.Name;
+                  category.Slug = model.Slug.ToLower();
+                  context.Entry<Category>(category).State = EntityState.Modified;
+                  await context.SaveChangesAsync();
+                  return Created($"/v1/categories/{category.Id}", new ResultViewModel<Category>(category));
+           }
+           catch (DbUpdateException ex)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("05XE8 - Não foi possível alterar a categoria"));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("05X11 - Falha interna no servidor"));
+            }
         }
 
          [HttpDelete("v1/categories/{id:int}")]
