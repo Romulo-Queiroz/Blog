@@ -16,6 +16,10 @@ namespace Blog.Controllers
                 var categories = await context.Categories.ToListAsync();
                 return Ok(new ResultViewModel<List<Category>>(categories));
             }
+              catch (DbUpdateException ex)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("05XE8 - Não foi possível buscar as categorias"));
+            }
             catch
             {
                 return StatusCode(500, new ResultViewModel<List<Category>>("05X04 - Falha interna no servidor"));
@@ -37,6 +41,10 @@ namespace Blog.Controllers
                     return NotFound(new ResultViewModel<Category>("Conteúdo não encontrado"));
 
                 return Ok(new ResultViewModel<Category>(category));
+            }
+              catch (DbUpdateException ex)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("05XE8 - Não foi possível buscar a categoria"));
             }
             catch
             {
@@ -62,9 +70,13 @@ namespace Blog.Controllers
                await context.SaveChangesAsync();
                return Created($"/v1/categories/{category.Id}", category);
            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("05XE8 - Não foi possível criar a categoria"));
+            }
            catch (Exception)
            {
-               return BadRequest(new { message = "Não foi possível criar a categoria" });
+               return StatusCode(500, new ResultViewModel<Category>("Falha interna no servidor"));
            }
         }
 
@@ -101,12 +113,22 @@ namespace Blog.Controllers
             [FromRoute] int id,
             [FromServices] BlogDataContext context)
         {
-              var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-              if (category == null)
-                 return NotFound();
-                  context.Categories.Remove(category);  // Remove o registro
-                 await context.SaveChangesAsync(); 
-                 return NoContent();
+              try {
+                var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+                if (category == null)
+                    return NotFound();
+                context.Categories.Remove(category);
+                await context.SaveChangesAsync();
+                return Ok(new ResultViewModel<Category>(category));
+              }
+                catch (DbUpdateException ex)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("05XE8 - Não foi possível deletar a categoria"));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResultViewModel<Category>("05X11 - Falha interna no servidor"));
+            }
 
         }
     }
