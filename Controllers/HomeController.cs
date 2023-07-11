@@ -10,7 +10,7 @@ namespace Blog.Controllers
        public IActionResult Get()
        {
            return Ok("Api is running...");
-       }
+       }      
     }
 
 }
