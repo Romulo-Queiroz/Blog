@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ejzT4lrM7y8Nwfgzpc7FN5pOnvIxoRndl3Wbey0zrx8AsqLEAT1gmbfsz6U3ph5Hbt7Y7YZkGXHYtQy3pVxN1w==",
+  "dgSpecHash": "yF/n5uVkrtW6ZKMf9RCHODNeXmVfOydAzXm+zYuXeGoj58t9NPwSJHb0ipFiQ5WIjvfqWaDYhzbB1H3S0YFghg==",
   "success": true,
   "projectFilePath": "C:\\Users\\rfcon\\OneDrive\\Documentos\\DotNet-Carreira\\Blog\\Blog.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.9\\microsoft.aspnetcore.authentication.jwtbearer.7.0.9.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.2.0\\microsoft.aspnetcore.cryptography.internal.2.2.0.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.aspnetcore.dataprotection\\2.2.0\\microsoft.aspnetcore.dataprotection.2.2.0.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.abstractions\\2.2.0\\microsoft.aspnetcore.dataprotection.abstractions.2.2.0.nupkg.sha512",
