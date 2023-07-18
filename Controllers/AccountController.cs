@@ -1,15 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
 using Blog.Services;
-using Microsoft.AspNetCore.Authorization;
+//
+using Blog.ViewModels;
+using Blog.Data;
+using Blog.Models;
 
 namespace Blog.Controllers;
 
 [ApiController]
 public class AccountController : ControllerBase
 {
+  [HttpPost("v1/accounts")]
+  public async Task<ActionResult> Post(
+    [FromBody] RegisterViewModel model,
+    [FromServices] BlogDataContext context)
+  {
+    if (!ModelState.IsValid)
+      return BadRequest(new ResultViewModel<string>(
+        ModelState.SelectMany(sm => sm.Value.Errors).Select(s => s.ErrorMessage).ToList()
+      ));
 
-    [AllowAnonymous]  // Permite que o método seja acessado sem autenticação
-     [HttpPost("v1/login")]
+      var user = new User
+      {
+        Name = model.Name,
+        Email = model.Email,
+        Slug = model.Email.Replace("@", "-").Replace(".", "-"),
+      };
+      await context.Users.AddAsync(user);
+      return Ok(new ResultViewModel<string>("Usuário criado com sucesso"));
+
+  }
+    [HttpPost("v1/login")]
    public IActionResult Login([FromServices]TokenServices tokenService)
    {
   
@@ -17,15 +38,4 @@ public class AccountController : ControllerBase
     return Ok(token);
    }
 
-    [Authorize(Roles = "user")] // Permite que o método seja acessado somente com autenticação
-    [HttpPost("v1/user")]
-    public IActionResult GetUser() => Ok(User.Identity.Name);
-
-    [Authorize(Roles = "author")]
-    [HttpPost("v1/author")]
-    public IActionResult GetAuthor() => Ok(User.Identity.Name);
-    
-    [Authorize(Roles = "admin")]
-    [HttpPost("v1/admin")]
-    public IActionResult GetAdmin() => Ok(User.Identity.Name);
 }
