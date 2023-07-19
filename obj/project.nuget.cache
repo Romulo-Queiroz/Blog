@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yF/n5uVkrtW6ZKMf9RCHODNeXmVfOydAzXm+zYuXeGoj58t9NPwSJHb0ipFiQ5WIjvfqWaDYhzbB1H3S0YFghg==",
+  "dgSpecHash": "wR+Rd7cRbIU8X5vMOm19xOcPNZJSgIkEZI0vs7Yav+O8gfjfxOCsIP4nyQ8HFkp6fXV3v5yRDZehPRA/pC7yFw==",
   "success": true,
   "projectFilePath": "C:\\Users\\rfcon\\OneDrive\\Documentos\\DotNet-Carreira\\Blog\\Blog.csproj",
   "expectedPackageFiles": [
@@ -60,6 +60,7 @@
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\rfcon\\.nuget\\packages\\secureidentity\\1.0.4\\secureidentity.1.0.4.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\rfcon\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",

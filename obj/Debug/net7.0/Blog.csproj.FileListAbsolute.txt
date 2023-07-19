@@ -69,3 +69,4 @@ C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\obj\Debug\net7.0\Blog.pd
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\obj\Debug\net7.0\Blog.genruntimeconfig.cache
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\obj\Debug\net7.0\ref\Blog.dll
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\SecureIdentity.dll
