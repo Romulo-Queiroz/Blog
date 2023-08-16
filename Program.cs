@@ -6,42 +6,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigureAuthentication(builder);
+ConfigureMvc(builder);
+ConfigureServices(builder);
 
-var key = Encoding.ASCII.GetBytes(Configuration.JwKey);
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
-    };   
-});
-
-builder.Services
-.AddControllers()
-.ConfigureApiBehaviorOptions(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
-});
-builder.Services.AddDbContext<BlogDataContext>();
-builder.Services.AddTransient<TokenServices>(); //sempre cria uma nova instância um novo Token
-
-//   Além do AddTransient, temos também:
-//builder.Services.AddScoped(); // cria um novo Token por transação
-//builder.Services.AddSingleton(); // cria uma única instância para toda a aplicação
-
- 
 var app = builder.Build();
 
-var smtp = new Configuration.SmtpConfiguration(); //instanciando a classe Smtp configuration 
-app.Configuration.GetSection("Smtp").Bind(smtp);   
-Configuration.Smtp = smtp;
+LoadConfiguration(app);
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -49,3 +20,55 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void LoadConfiguration (WebApplication app)
+{
+    Configuration.JwtKey = app.Configuration.GetValue<string>("JwtKey");
+    Configuration.ApiKeyName = app.Configuration.GetValue<string>("ApiKeyName");
+    Configuration.ApiKey = app.Configuration.GetValue<string>("ApiKey");
+
+    var smtp = new Configuration.SmtpConfiguration(); //instanciando a classe Smtp configuration 
+    app.Configuration.GetSection("Smtp").Bind(smtp);
+    Configuration.Smtp = smtp;
+
+}
+
+void ConfigureAuthentication(WebApplicationBuilder builder)
+{
+    var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
+}
+
+
+void ConfigureMvc(WebApplicationBuilder builder)
+{
+    builder
+        .Services
+        .AddControllers()
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;
+        });
+  
+}
+
+void ConfigureServices(WebApplicationBuilder builder)
+{
+    builder.Services.AddDbContext<BlogDataContext>();
+    builder.Services.AddTransient<TokenServices>(); //sempre cria uma nova instância um novo Token
+}
