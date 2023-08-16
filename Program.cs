@@ -39,6 +39,9 @@ builder.Services.AddTransient<TokenServices>(); //sempre cria uma nova instânci
  
 var app = builder.Build();
 
+var smtp = new Configuration.SmtpConfiguration(); //instanciando a classe Smtp configuration 
+app.Configuration.GetSection("Smtp").Bind(smtp);   
+Configuration.Smtp = smtp;
 
 app.UseAuthentication();
 app.UseAuthorization();
