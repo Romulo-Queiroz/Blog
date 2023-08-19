@@ -71,4 +71,5 @@ void ConfigureServices(WebApplicationBuilder builder)
 {
     builder.Services.AddDbContext<BlogDataContext>();
     builder.Services.AddTransient<TokenServices>(); //sempre cria uma nova instância um novo Token
+    builder.Services.AddTransient<EmailService>();
 }
