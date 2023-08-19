@@ -14,6 +14,7 @@ public class AccountController : ControllerBase
    [HttpPost("v1/accounts/")]
     public async Task<IActionResult> Post(
         [FromBody] RegisterViewModel model,
+        [FromServices] EmailService emailService,
         [FromServices] BlogDataContext context)
     {
         if (!ModelState.IsValid)
@@ -28,6 +29,12 @@ public class AccountController : ControllerBase
             Slug = model.Email.Replace("@", "-").Replace(".", "-")
         };
 
+        var fromUser = new User
+        {
+            Name = "Equipe Freitas",
+            Email = "rfcontatosvia@gmail.com"
+        };
+
         var password = PasswordGenerator.Generate(25);
         user.PasswordHash = PasswordHasher.Hash(password);
 
@@ -35,7 +42,7 @@ public class AccountController : ControllerBase
         {
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
-
+            emailService.Send(user.Name, user.Email, "Bem-vindo ao Blog", $"<p>Olá {user.Name}, seja bem-vindo ao Blog!</p><p>Seu usuário é: {user.Email}</p><p>Sua senha é: {password}</p> <p>Nosso contato: {fromUser.Email}");
             return Ok(new ResultViewModel<dynamic>(new
             {
                 user = user.Email, password

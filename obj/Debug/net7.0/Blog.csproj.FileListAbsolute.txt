@@ -70,3 +70,6 @@ C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\obj\Debug\net7.0\Blog.ge
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\obj\Debug\net7.0\ref\Blog.dll
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\SecureIdentity.dll
+C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\SendGrid.dll
+C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\StarkbankEcdsa.dll
