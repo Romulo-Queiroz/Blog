@@ -5,6 +5,9 @@ using Blog.ViewModels;
 using Blog.Data;
 using Blog.Models;
 using Microsoft.EntityFrameworkCore;
+using Blog.ViewModels.Accounts;
+using Microsoft.AspNetCore.Authorization;
+using System.Text.RegularExpressions;
 
 namespace Blog.Controllers;
 
@@ -28,13 +31,7 @@ public class AccountController : ControllerBase
             Email = model.Email,
             Slug = model.Email.Replace("@", "-").Replace(".", "-")
         };
-
-        var fromUser = new User
-        {
-            Name = "Equipe Freitas",
-            Email = "rfcontatosvia@gmail.com"
-        };
-
+       
         var password = PasswordGenerator.Generate(25);
         user.PasswordHash = PasswordHasher.Hash(password);
 
@@ -42,7 +39,7 @@ public class AccountController : ControllerBase
         {
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
-            emailService.Send(user.Name, user.Email, "Bem-vindo ao Blog", $"<p>Olá {user.Name}, seja bem-vindo ao Blog!</p><p>Seu usuário é: {user.Email}</p><p>Sua senha é: {password}</p> <p>Nosso contato: {fromUser.Email}");
+            emailService.Send(user.Name, user.Email, "Bem-vindo ao Blog", $"<p>Olá {user.Name}, seja bem-vindo ao Blog!</p><p>Seu usuário é: {user.Email}</p><p>Sua senha é: {password}</p>");
             return Ok(new ResultViewModel<dynamic>(new
             {
                 user = user.Email, password
@@ -89,5 +86,44 @@ public class AccountController : ControllerBase
         {
             return StatusCode(500, new ResultViewModel<string>("05X04 - Falha interna no servidor"));
         }
+    }
+    [Authorize]
+    [HttpPost("v1/accounts/upload-image")]
+    public async Task<IActionResult> UploadImage(
+        [FromBody] UploadImageViewModel model,
+        [FromServices] BlogDataContext context)
+    {
+        var fileName = $"{Guid.NewGuid().ToString()}.jpg";
+        var data = new Regex(@"^data:image\/[a-z]+;base64,")
+            .Replace(model.Base64Image, "");
+        var bytes = Convert.FromBase64String(data);
+
+        try 
+        {
+            await System.IO.File.WriteAllBytesAsync($"wwwroot/images/{fileName}", bytes);
+        }   
+        catch
+        {
+            return StatusCode(500, new ResultViewModel<string>("05X04 - Falha interna no servidor"));
+        }
+        var user = await context
+            .Users
+            .FirstOrDefaultAsync(x => x.Email == User.Identity.Name);
+
+        if (user == null)
+            return StatusCode(401, new ResultViewModel<string>("Usuário não encontrado"));
+        
+        user.Image = $"https://localhost:0000/images/{fileName}";
+
+        try
+        {
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+        }
+        catch
+        {
+            return StatusCode(500, new ResultViewModel<string>("05X04 - Falha interna no servidor"));
+        }
+        return Ok(new ResultViewModel<string>("Imagem atualizada com sucesso"));
     }
 }

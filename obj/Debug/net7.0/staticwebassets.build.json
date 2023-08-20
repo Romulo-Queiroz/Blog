@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "iHKkzylLStCdz/H62Ga7eUDHbY68jqQS/peP5vtmhCs=",
+  "Hash": "y2RDibIRwMRCC7fK9cKIYDRt9+Wx++nNPaonTsLD9lg=",
   "Source": "Blog",
   "BasePath": "_content/Blog",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Blog\\wwwroot",
+      "Source": "Blog",
+      "ContentRoot": "C:\\Users\\rfcon\\OneDrive\\Documentos\\DotNet-Carreira\\Blog\\wwwroot\\",
+      "BasePath": "_content/Blog",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

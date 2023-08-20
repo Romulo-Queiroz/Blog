@@ -3,7 +3,8 @@ using Blog.Data;
 using Microsoft.EntityFrameworkCore;
 using Blog.Models;
 using Blog.ViewModels;
-namespace Blog.Controllers
+using Blog.ViewModels.Categories;
+namespace Blog.Controllers.Accounts
 {
     [ApiController]
     public class CategoryController : ControllerBase

@@ -73,3 +73,4 @@ C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\SecureI
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\SendGrid.dll
 C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\StarkbankEcdsa.dll
+C:\Users\rfcon\OneDrive\Documentos\DotNet-Carreira\Blog\bin\Debug\net7.0\Blog.staticwebassets.runtime.json

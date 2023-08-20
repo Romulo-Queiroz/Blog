@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Services"
+    "\\Controllers",
+    "\\ViewModels",
+    "\\ViewModels\\Accounts",
+    "\\ViewModels\\Categories"
   ],
+  "SelectedNode": "\\ViewModels\\Categories\\EditorCategoryViewModel.cs",
   "PreviewInSolutionExplorer": false
 }
