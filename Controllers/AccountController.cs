@@ -109,7 +109,7 @@ public class AccountController : ControllerBase
             string basePath = _configuration["AppSettings:BasePath"];
 
             // Define caminho completo para pasta de uploads
-            string imagesFolder = "UserRoot/images";
+            string imagesFolder = "wwwroot/images";
             string fullPath = Path.Combine(basePath, imagesFolder,fileName);
 
             // Salva arquivo em disco
