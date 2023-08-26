@@ -4,8 +4,9 @@
     "\\Controllers",
     "\\ViewModels",
     "\\ViewModels\\Accounts",
-    "\\ViewModels\\Categories"
+    "\\ViewModels\\Categories",
+    "\\wwwroot"
   ],
-  "SelectedNode": "\\ViewModels\\Categories\\EditorCategoryViewModel.cs",
+  "SelectedNode": "\\wwwroot\\images",
   "PreviewInSolutionExplorer": false
 }
