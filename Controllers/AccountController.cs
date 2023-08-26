@@ -8,13 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using Blog.ViewModels.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Configuration;
 
 namespace Blog.Controllers;
 
 [ApiController]
 public class AccountController : ControllerBase
 {
-   [HttpPost("v1/accounts/")]
+    public AccountController(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+    private readonly IConfiguration _configuration;
+
+    [HttpPost("v1/accounts/")]
     public async Task<IActionResult> Post(
         [FromBody] RegisterViewModel model,
         [FromServices] EmailService emailService,
@@ -90,40 +97,50 @@ public class AccountController : ControllerBase
     [Authorize]
     [HttpPost("v1/accounts/upload-image")]
     public async Task<IActionResult> UploadImage(
-        [FromBody] UploadImageViewModel model,
-        [FromServices] BlogDataContext context)
+       [FromBody] UploadImageViewModel model,
+       [FromServices] BlogDataContext context)
     {
         var fileName = $"{Guid.NewGuid().ToString()}.jpg";
-        var data = new Regex(@"^data:image\/[a-z]+;base64,")
-            .Replace(model.Base64Image, "");
+        var data = new Regex(@"^data:image\/[a-z]+;base64,").Replace(model.Base64Image, "");
         var bytes = Convert.FromBase64String(data);
 
-        try 
+        try
         {
-            await System.IO.File.WriteAllBytesAsync($"wwwroot/images/{fileName}", bytes);
-        }   
-        catch
+            string basePath = _configuration["AppSettings:BasePath"];
+
+            // Define caminho completo para pasta de uploads
+            string imagesFolder = "UserRoot/images";
+            string fullPath = Path.Combine(basePath, imagesFolder,fileName);
+
+            // Salva arquivo em disco
+            await System.IO.File.WriteAllBytesAsync(fullPath, bytes);
+
+            // Retorna resposta
+            return Ok();
+        }
+        catch (Exception ex)
         {
             return StatusCode(500, new ResultViewModel<string>("05X04 - Falha interna no servidor"));
         }
+
         var user = await context
             .Users
             .FirstOrDefaultAsync(x => x.Email == User.Identity.Name);
 
         if (user == null)
-            return StatusCode(401, new ResultViewModel<string>("Usuário não encontrado"));
-        
-        user.Image = $"https://localhost:0000/images/{fileName}";
+            return NotFound(new ResultViewModel<Category>("Usuário não encontrado"));
 
+        user.Image = $"https://localhost:0000/images/{fileName}";
         try
         {
             context.Users.Update(user);
             await context.SaveChangesAsync();
         }
-        catch
+        catch (Exception ex)
         {
             return StatusCode(500, new ResultViewModel<string>("05X04 - Falha interna no servidor"));
         }
-        return Ok(new ResultViewModel<string>("Imagem atualizada com sucesso"));
+
+        return Ok(new ResultViewModel<string>("Imagem alterada com sucesso!", null));
     }
 }
