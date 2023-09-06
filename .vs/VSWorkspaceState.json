@@ -1,12 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
-    "\\ViewModels",
-    "\\ViewModels\\Accounts",
-    "\\ViewModels\\Categories",
-    "\\wwwroot"
+    "\\Properties",
+    "\\wwwroot\\images"
   ],
-  "SelectedNode": "\\wwwroot\\images",
+  "SelectedNode": "\\Properties\\launchSettings.json",
   "PreviewInSolutionExplorer": false
 }

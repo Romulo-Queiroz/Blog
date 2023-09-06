@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "y2RDibIRwMRCC7fK9cKIYDRt9+Wx++nNPaonTsLD9lg=",
+  "Hash": "2bVSRzv4oDfOEZ8Xzz4b72C0PGcf4DGXFQ8b1J6k4Uo=",
   "Source": "Blog",
   "BasePath": "_content/Blog",
   "Mode": "Default",
@@ -15,5 +15,23 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\rfcon\\OneDrive\\Documentos\\DotNet-Carreira\\Blog\\wwwroot\\images\\c02577e5-2420-4b97-900e-70fbf0babfa6.jpg",
+      "SourceId": "Blog",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\rfcon\\OneDrive\\Documentos\\DotNet-Carreira\\Blog\\wwwroot\\",
+      "BasePath": "_content/Blog",
+      "RelativePath": "images/c02577e5-2420-4b97-900e-70fbf0babfa6.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\c02577e5-2420-4b97-900e-70fbf0babfa6.jpg"
+    }
+  ]
 }

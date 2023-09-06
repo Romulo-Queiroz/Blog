@@ -1,8 +1,8 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\rfcon\\OneDrive\\Documentos\\DotNet-Carreira\\Blog\\wwwroot\\Novo Arquivo",
-      "PackagePath": "staticwebassets"
+      "Id": "C:\\Users\\rfcon\\OneDrive\\Documentos\\DotNet-Carreira\\Blog\\wwwroot\\images\\c02577e5-2420-4b97-900e-70fbf0babfa6.jpg",
+      "PackagePath": "staticwebassets\\images\\c02577e5-2420-4b97-900e-70fbf0babfa6.jpg"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.Blog.Microsoft.AspNetCore.StaticWebAssets.props",
