@@ -1,11 +1,11 @@
-<h1 align="center">EM PROCESSO</h1>
-<h4><strong>Inicio do projeto:</strong> 31/05/23</h4>
+<h1 align="center">Blog</h1>
+<h4>Projeto com conteúdo disponibilizado no <strong><a href="https://balta.io/">balta.io</a> </strong></h4>
 
 <br />
 
 # Iniciando o projeto
 Para rodar o projeto você precisa antes de algumas ferramentas instaladas:
-* Visual Studio Code
+* uma IDE de preferência
 #### Ferramentas
 * Docker para rodar o Sql 
 * Projeto está em .NET 5.0
@@ -15,7 +15,15 @@ Para rodar o projeto você precisa antes de algumas ferramentas instaladas:
 * Microsoft.EntityFrameworkCore.SqlServer
 * Microsoft.EntityFrameworkCore.Tools
 
-
+# Rodando o projeto:
+```bash
+dotnet run
+dotnet watch
+```
+* Exemplo para verificar todos endpoints
+```bash
+http://localhost:5201/swagger/index.html
+````
 
 ## Clonando o projeto
 ```bash
